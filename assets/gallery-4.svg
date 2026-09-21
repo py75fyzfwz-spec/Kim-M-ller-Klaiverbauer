@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <radialGradient id="spot" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#26262a"/>
+      <stop offset="100%" stop-color="#0c0c0d"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#spot)"/>
+  <path d="M300 460 C 340 320, 480 260, 640 260 L 760 300 L 760 380 L 680 400 L 680 460 Z"
+        fill="#1a1a1d" stroke="#c9a04e" stroke-opacity="0.55" stroke-width="1.5"/>
+  <ellipse cx="530" cy="470" rx="260" ry="14" fill="#000" opacity="0.4"/>
+  <g stroke="#c9a04e" stroke-opacity="0.3" stroke-width="1">
+    <line x1="0" y1="520" x2="900" y2="520"/>
+  </g>
+  <text x="450" y="560" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="20" fill="#cfc9bc">Restaurierter Flügel im Konzertsaal</text>
+</svg>
