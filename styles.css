@@ -15,6 +15,7 @@
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
   --maxw: 1160px;
+  --ease: cubic-bezier(0.16, 0.84, 0.44, 1);
 }
 
 * { box-sizing: border-box; }
@@ -112,7 +113,7 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   color: var(--ivory-dim);
   position: relative;
   padding-bottom: 4px;
-  transition: color 0.3s ease;
+  transition: color 0.4s var(--ease);
 }
 .nav a::after {
   content: '';
@@ -121,7 +122,7 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   width: 0;
   height: 1px;
   background: var(--gold);
-  transition: width 0.3s ease;
+  transition: width 0.45s var(--ease);
 }
 .nav a:hover { color: var(--gold-bright); }
 .nav a:hover::after { width: 100%; }
@@ -201,9 +202,14 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   font-size: 0.72rem;
   background: transparent;
   cursor: pointer;
-  transition: background 0.35s ease, color 0.35s ease;
+  transition: background 0.5s var(--ease), color 0.5s var(--ease), transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
 }
-.btn:hover { background: var(--gold); color: var(--black); }
+.btn:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -12px rgba(201, 160, 78, 0.45);
+}
 
 .btn-outline { background: transparent; }
 
@@ -224,8 +230,15 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
 .key-strip.small { position: static; height: 26px; max-width: 360px; margin: 1.6rem auto; opacity: 0.5; }
 
 /* ---------- Sections ---------- */
-.section { padding: 7rem 1.5rem; }
-.section.alt { background: var(--black-soft); }
+.section { padding: 7rem 1.5rem; position: relative; }
+.section.alt {
+  background: linear-gradient(180deg,
+    var(--black) 0,
+    var(--black-soft) 90px,
+    var(--black-soft) calc(100% - 90px),
+    var(--black) 100%);
+}
+.section.alt + .section.alt { background: var(--black-soft); }
 .section-inner { max-width: var(--maxw); margin: 0 auto; }
 
 .two-col {
@@ -270,10 +283,10 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
 .service {
   background: var(--black-soft);
   padding: 2.6rem 2.2rem;
-  transition: background 0.35s ease;
+  transition: background 0.5s var(--ease), transform 0.5s var(--ease);
 }
 .section.alt .service { background: var(--black); }
-.service:hover { background: #17171a; }
+.service:hover { background: #17171a; transform: translateY(-4px); }
 .service-icon {
   font-family: var(--serif);
   font-size: 1.6rem;
@@ -319,7 +332,7 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   color: var(--gold);
   margin-bottom: 0.3em;
 }
-.contact-list a { color: var(--ivory); transition: color 0.3s ease; }
+.contact-list a { color: var(--ivory); transition: color 0.4s var(--ease); }
 .contact-list a:hover { color: var(--gold-bright); }
 
 .contact-form { display: flex; flex-direction: column; gap: 1.3rem; }
@@ -339,6 +352,7 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   font-size: 1rem;
   padding: 0.6rem 0.1rem;
   resize: vertical;
+  transition: border-color 0.4s var(--ease);
 }
 .form-row input:focus, .form-row textarea:focus {
   outline: none;
@@ -365,6 +379,25 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   margin: 0;
 }
 
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transition-delay: var(--reveal-delay, 0s);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .two-col { grid-template-columns: 1fr; }
@@ -383,7 +416,7 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
     transform: translateY(-8px);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
   }
   .nav.open {
     opacity: 1;
