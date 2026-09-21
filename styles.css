@@ -275,7 +275,7 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
     var(--black-soft) calc(100% - 90px),
     var(--black) 100%);
 }
-.section.alt + .section.alt { background: var(--black-soft); }
+.section.alt + .section.alt { background: var(--black-soft); border-top: 1px solid var(--line); }
 .section-inner { max-width: var(--maxw); margin: 0 auto; }
 
 .two-col {
