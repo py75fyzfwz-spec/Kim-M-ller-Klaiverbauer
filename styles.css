@@ -283,8 +283,8 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
 .section.alt {
   background: linear-gradient(180deg,
     var(--black) 0,
-    var(--black-soft) 90px,
-    var(--black-soft) calc(100% - 90px),
+    var(--black-soft) 260px,
+    var(--black-soft) calc(100% - 260px),
     var(--black) 100%);
 }
 .section.alt + .section.alt { background: var(--black-soft); border-top: 1px solid var(--line); }
