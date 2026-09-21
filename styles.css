@@ -74,6 +74,18 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   mix-blend-mode: overlay;
 }
 
+/* ---------- Scroll progress ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(to right, var(--gold), var(--gold-bright));
+  z-index: 60;
+  transition: width 0.1s linear;
+}
+
 /* ---------- Header ---------- */
 .site-header {
   position: fixed;
@@ -161,7 +173,7 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   overflow: hidden;
 }
 
-.hero-content { max-width: 640px; margin: 0 auto; }
+.hero-content { max-width: 640px; margin: 0 auto; will-change: transform, opacity; }
 
 .hero .eyebrow { justify-content: center; text-align: center; }
 
