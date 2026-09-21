@@ -15,14 +15,17 @@ nav.querySelectorAll('a').forEach((link) => {
 });
 
 // Contact form (client-side only — wire up to a backend or mail service as needed)
+// Only present on pages that include the contact section (e.g. index.html)
 const form = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  formNote.textContent = 'Vielen Dank! Ich melde mich in Kürze bei Ihnen zurück.';
-  form.reset();
-});
+if (form) {
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    formNote.textContent = 'Vielen Dank! Ich melde mich in Kürze bei Ihnen zurück.';
+    form.reset();
+  });
+}
 
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();

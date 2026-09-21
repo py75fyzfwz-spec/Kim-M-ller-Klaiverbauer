@@ -213,6 +213,40 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
 
 .btn-outline { background: transparent; }
 
+/* scroll cue: replaces the old hard-edged key-strip divider between hero and content */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 44px;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  opacity: 0.8;
+  transition: opacity 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.scroll-cue:hover { opacity: 1; border-color: var(--gold); }
+.scroll-cue span {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 3px;
+  height: 8px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: var(--gold);
+  animation: scroll-cue-move 1.8s ease-in-out infinite;
+}
+@keyframes scroll-cue-move {
+  0% { opacity: 0; transform: translateY(0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(11px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue span { animation: none; opacity: 1; }
+}
+
 /* piano-key divider */
 .key-strip {
   position: absolute;
@@ -298,6 +332,103 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   margin-bottom: 0.5em;
 }
 .service p { margin: 0; font-size: 0.92rem; }
+
+/* ---------- Instrumente ---------- */
+.page-intro { max-width: 760px; }
+
+.instruments-grid {
+  margin-top: 3.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.instrument-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  background: var(--black-soft);
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.section.alt .instrument-card { background: var(--black); }
+.instrument-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+
+.instrument-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--gold);
+  background: rgba(12, 12, 13, 0.75);
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.6rem;
+}
+
+.instrument-photo {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg, rgba(201, 160, 78, 0.1), transparent 70%);
+  color: var(--gold);
+}
+.instrument-photo-icon { font-size: 2.4rem; }
+.instrument-photo-label {
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ivory-dim);
+}
+
+.instrument-info {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  flex: 1;
+}
+.instrument-info h3 { font-size: 1.3rem; margin: 0; }
+
+.instrument-meta { list-style: none; margin: 0; padding: 0; }
+.instrument-meta li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.82rem;
+  color: var(--ivory-dim);
+  padding: 0.45rem 0;
+  border-top: 1px solid var(--line);
+}
+.instrument-meta li:first-child { border-top: none; padding-top: 0; }
+.instrument-meta .label {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.64rem;
+  align-self: center;
+}
+
+.instrument-price {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--gold-bright);
+  margin-top: auto;
+}
+
+.instrument-note {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  font-style: italic;
+  font-size: 0.92rem;
+}
 
 /* ---------- Quote ---------- */
 .quote-section { text-align: center; padding: 6rem 1.5rem; }
@@ -402,6 +533,7 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
 @media (max-width: 900px) {
   .two-col { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .instruments-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 720px) {
@@ -425,5 +557,6 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   }
   .nav-toggle { display: flex; }
   .services-grid { grid-template-columns: 1fr; }
+  .instruments-grid { grid-template-columns: 1fr; }
   .stats { flex-wrap: wrap; row-gap: 1.4rem; }
 }
