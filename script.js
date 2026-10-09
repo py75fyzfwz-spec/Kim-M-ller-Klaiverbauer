@@ -14,16 +14,55 @@ nav.querySelectorAll('a').forEach((link) => {
   });
 });
 
-// Contact form (client-side only — wire up to a backend or mail service as needed)
+// Contact form: sends messages via Web3Forms (https://web3forms.com).
+// Paste the access key from web3forms.com here. Until then, the form opens
+// the visitor's mail program with the message pre-filled instead.
+const WEB3FORMS_ACCESS_KEY = '';
+const CONTACT_EMAIL = 'kmt-pianos@t-online.de';
+
 // Only present on pages that include the contact section (e.g. index.html)
 const form = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
 
 if (form) {
-  form.addEventListener('submit', (event) => {
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  const openMailFallback = (data) => {
+    const subject = `Anfrage von ${data.get('name')}`;
+    const body = `${data.get('message')}\n\n${data.get('name')}\n${data.get('email')}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    formNote.textContent = 'Ihr E-Mail-Programm wurde geöffnet. Bitte senden Sie die Nachricht dort ab.';
+  };
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    formNote.textContent = 'Vielen Dank! Ich melde mich in Kürze bei Ihnen zurück.';
-    form.reset();
+    const data = new FormData(form);
+
+    if (!WEB3FORMS_ACCESS_KEY) {
+      openMailFallback(data);
+      return;
+    }
+
+    data.append('access_key', WEB3FORMS_ACCESS_KEY);
+    data.append('replyto', data.get('email'));
+    submitButton.disabled = true;
+    formNote.textContent = 'Nachricht wird gesendet …';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message);
+      formNote.textContent = 'Vielen Dank! Ich melde mich in Kürze bei Ihnen zurück.';
+      form.reset();
+    } catch (error) {
+      formNote.innerHTML = `Das Senden hat leider nicht geklappt. Bitte schreiben Sie direkt an <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.`;
+    } finally {
+      submitButton.disabled = false;
+    }
   });
 }
 
