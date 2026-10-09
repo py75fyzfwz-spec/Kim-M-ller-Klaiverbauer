@@ -14,10 +14,9 @@ nav.querySelectorAll('a').forEach((link) => {
   });
 });
 
-// Contact form: sends messages via Web3Forms (https://web3forms.com).
-// Paste the access key from web3forms.com here. Until then, the form opens
-// the visitor's mail program with the message pre-filled instead.
-const WEB3FORMS_ACCESS_KEY = '';
+// Contact form: sends messages through the Worker in worker.js (via Resend).
+// If that isn't available (e.g. no API key yet, or the site is opened as a
+// plain file), it opens the visitor's mail program with the message pre-filled.
 const CONTACT_EMAIL = 'kmt-pianos@t-online.de';
 
 // Only present on pages that include the contact section (e.g. index.html)
@@ -31,20 +30,12 @@ if (form) {
     const subject = `Anfrage von ${data.get('name')}`;
     const body = `${data.get('message')}\n\n${data.get('name')}\n${data.get('email')}`;
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    formNote.textContent = 'Ihr E-Mail-Programm wurde geöffnet. Bitte senden Sie die Nachricht dort ab.';
+    formNote.innerHTML = `Ihr E-Mail-Programm wurde geöffnet. Bitte senden Sie die Nachricht dort ab, oder schreiben Sie direkt an <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.`;
   };
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const data = new FormData(form);
-
-    if (!WEB3FORMS_ACCESS_KEY) {
-      openMailFallback(data);
-      return;
-    }
-
-    data.append('access_key', WEB3FORMS_ACCESS_KEY);
-    data.append('replyto', data.get('email'));
     submitButton.disabled = true;
     formNote.textContent = 'Nachricht wird gesendet …';
 
@@ -59,7 +50,7 @@ if (form) {
       formNote.textContent = 'Vielen Dank! Ich melde mich in Kürze bei Ihnen zurück.';
       form.reset();
     } catch (error) {
-      formNote.innerHTML = `Das Senden hat leider nicht geklappt. Bitte schreiben Sie direkt an <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.`;
+      openMailFallback(data);
     } finally {
       submitButton.disabled = false;
     }

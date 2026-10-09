@@ -142,9 +142,7 @@
         </ul>
       </div>
       <div class="col-form reveal" style="--reveal-delay: 0.1s">
-        <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="subject" value="Neue Anfrage über die Website">
-          <input type="hidden" name="from_name" value="Website Kim Müller Klavierbauer">
+        <form class="contact-form" id="contactForm" action="/api/kontakt" method="POST">
           <input type="checkbox" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-row">
             <label for="name">Name</label>
