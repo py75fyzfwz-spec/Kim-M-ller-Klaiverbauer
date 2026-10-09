@@ -574,12 +574,6 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   color: var(--ivory-dim);
 }
 
-/* Instrumente-Teaser auf der Startseite */
-.instruments-teaser .instruments-grid { margin-top: 2.5rem; }
-.instruments-teaser .page-intro { margin: 0 auto; text-align: center; }
-.instrument-card-link { color: inherit; }
-.instruments-teaser-cta { text-align: center; margin-top: 3rem; }
-
 /* ---------- Quote ---------- */
 .quote-section { text-align: center; padding: 6rem 1.5rem; }
 .quote-section blockquote {
