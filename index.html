@@ -142,7 +142,8 @@
         </ul>
       </div>
       <div class="col-form reveal" style="--reveal-delay: 0.1s">
-        <form class="contact-form" id="contactForm">
+        <form class="contact-form" id="contactForm" action="/api/kontakt" method="POST">
+          <input type="checkbox" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-row">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required>

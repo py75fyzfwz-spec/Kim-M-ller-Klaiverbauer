@@ -14,16 +14,46 @@ nav.querySelectorAll('a').forEach((link) => {
   });
 });
 
-// Contact form (client-side only — wire up to a backend or mail service as needed)
+// Contact form: sends messages through the Worker in worker.js (via Resend).
+// If that isn't available (e.g. no API key yet, or the site is opened as a
+// plain file), it opens the visitor's mail program with the message pre-filled.
+const CONTACT_EMAIL = 'kmt-pianos@t-online.de';
+
 // Only present on pages that include the contact section (e.g. index.html)
 const form = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
 
 if (form) {
-  form.addEventListener('submit', (event) => {
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  const openMailFallback = (data) => {
+    const subject = `Anfrage von ${data.get('name')}`;
+    const body = `${data.get('message')}\n\n${data.get('name')}\n${data.get('email')}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    formNote.innerHTML = `Ihr E-Mail-Programm wurde geöffnet. Bitte senden Sie die Nachricht dort ab, oder schreiben Sie direkt an <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.`;
+  };
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    formNote.textContent = 'Vielen Dank! Ich melde mich in Kürze bei Ihnen zurück.';
-    form.reset();
+    const data = new FormData(form);
+    submitButton.disabled = true;
+    formNote.textContent = 'Nachricht wird gesendet …';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message);
+      formNote.textContent = 'Vielen Dank! Ich melde mich in Kürze bei Ihnen zurück.';
+      form.reset();
+    } catch (error) {
+      openMailFallback(data);
+    } finally {
+      submitButton.disabled = false;
+    }
   });
 }
 
