@@ -6,3 +6,6 @@ worker.js
 node_modules
 .wrangler
 .gitignore
+api
+lib
+package.json

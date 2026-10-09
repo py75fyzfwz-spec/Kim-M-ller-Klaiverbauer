@@ -9,12 +9,5 @@
     "directory": ".",
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"]
-  },
-  "vars": {
-    // Recipient of contact form messages
-    "CONTACT_TO": "kmt-pianos@t-online.de",
-    // Sender address; must use a domain verified in Resend.
-    // onboarding@resend.dev only delivers to the Resend account's own address.
-    "CONTACT_FROM": "Website Kim Müller <onboarding@resend.dev>"
   }
 }
