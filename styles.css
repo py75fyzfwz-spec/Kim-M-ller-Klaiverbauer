@@ -592,3 +592,6 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   .instruments-grid { grid-template-columns: 1fr; }
   .stats { flex-wrap: wrap; row-gap: 1.4rem; }
 }
+
+/* Spam trap for the contact form: hidden from people, filled in by bots */
+.form-honeypot { display: none; }
