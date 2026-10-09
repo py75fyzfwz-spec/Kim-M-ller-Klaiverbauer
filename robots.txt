@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kim-mueller-klavierbaumeister.com/sitemap.xml
