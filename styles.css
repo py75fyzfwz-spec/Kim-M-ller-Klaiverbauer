@@ -461,6 +461,125 @@ h2.center { text-align: center; margin-bottom: 0.6em; }
   font-size: 0.92rem;
 }
 
+/* ---------- Instrument-Galerie ---------- */
+.instrument-gallery {
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+.gallery-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  aspect-ratio: 4 / 3;
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-track > * {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+}
+.gallery-track > img {
+  object-fit: cover;
+  cursor: zoom-in;
+}
+.gallery-track > .instrument-photo { border-bottom: none; aspect-ratio: auto; }
+
+.gallery-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(12, 12, 13, 0.7);
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease), border-color 0.35s var(--ease), background 0.35s var(--ease);
+}
+.gallery-prev { left: 12px; }
+.gallery-next { right: 12px; }
+.instrument-gallery:hover .gallery-btn,
+.gallery-btn:focus-visible { opacity: 1; }
+.gallery-btn:hover { border-color: var(--gold); background: rgba(12, 12, 13, 0.9); }
+@media (hover: none) { .instrument-gallery .gallery-btn { opacity: 1; } }
+
+.gallery-dots {
+  position: absolute;
+  left: 0; right: 0; bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+.gallery-dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.gallery-dots button.active { background: var(--gold); transform: scale(1.2); }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  background: rgba(8, 8, 9, 0.95);
+}
+.lightbox[hidden] { display: none; }
+.lightbox-img {
+  max-width: min(1100px, 100%);
+  max-height: 100%;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+}
+.lightbox .gallery-btn { opacity: 1; position: fixed; width: 46px; height: 46px; font-size: 2rem; }
+.lightbox .gallery-prev { left: 16px; }
+.lightbox .gallery-next { right: 16px; }
+.lightbox.single .gallery-btn { display: none; }
+.lightbox-close {
+  position: fixed;
+  top: 16px; right: 16px;
+  width: 42px; height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ivory);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox-close:hover { border-color: var(--gold); color: var(--gold); }
+.lightbox-count {
+  position: fixed;
+  bottom: 18px; left: 0; right: 0;
+  margin: 0;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--ivory-dim);
+}
+
+/* Instrumente-Teaser auf der Startseite */
+.instruments-teaser .instruments-grid { margin-top: 2.5rem; }
+.instruments-teaser .page-intro { margin: 0 auto; text-align: center; }
+.instrument-card-link { color: inherit; }
+.instruments-teaser-cta { text-align: center; margin-top: 3rem; }
+
 /* ---------- Quote ---------- */
 .quote-section { text-align: center; padding: 6rem 1.5rem; }
 .quote-section blockquote {
