@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kimmueller.vercel.app/sitemap.xml
+Sitemap: https://kim-mueller-klavierbaumeister.com/sitemap.xml
